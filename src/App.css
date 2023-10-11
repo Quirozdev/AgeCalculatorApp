@@ -7,6 +7,10 @@
   --off-black: hsl(0, 0%, 8%);
 }
 
+html {
+  font-size: 16px;
+}
+
 body {
   background-color: var(--off-white);
 }
@@ -14,23 +18,33 @@ body {
 .age-calculator-container {
   background-color: white;
   border-radius: 12px 12px 30% 24px;
+  padding: 2rem;
 }
 
 .age-form {
+  display: grid;
+  grid-template-columns: 1fr 75px;
+  grid-template-rows: 1fr auto;
+  row-gap: 12px;
+}
+
+.inputs-labels-row {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 14px;
 }
 
 .input-label-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  max-width: 120px;
-  flex: 1;
+  max-width: 100px;
 }
 
 .age-form-label {
   color: var(--smokey-grey);
-  font-size: 12px;
+  font-size: 0.8rem;
   letter-spacing: 0.5ch;
   font-weight: bold;
 }
@@ -39,7 +53,7 @@ body {
   padding: 8px 12px;
   border-radius: 4px;
   border: 1px solid var(--light-grey);
-  font-size: 18px;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -50,15 +64,27 @@ body {
 .age-form-input:focus {
   outline: 1px solid var(--purple);
   caret-color: var(--purple);
-  cursor: pointer;
+}
+
+.submit-btn-container {
+  justify-self: normal;
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.horizontal-line {
+  background-color: var(--light-grey);
+  height: 1px;
 }
 
 .calculate-age-btn {
   border-radius: 50%;
   background-color: var(--purple);
-  width: 55px;
-  height: 55px;
-  padding: 12px;
+  width: 60px;
+  height: 60px;
+  padding: 16px;
   border: none;
   cursor: pointer;
 }
@@ -72,9 +98,47 @@ body {
 }
 
 .attribution {
-  font-size: 11px;
+  font-size: 1rem;
   text-align: center;
 }
 .attribution a {
   color: hsl(228, 45%, 44%);
+}
+
+.age-results {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.time-age {
+  font-size: 56px;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.age-data {
+  color: var(--purple);
+}
+
+@media (max-width: 475px) {
+  .age-calculator-container {
+    padding: 1rem;
+  }
+
+  .age-form {
+    grid-template-columns: 1fr;
+  }
+
+  .horizontal-line {
+    grid-column: 1/ 1;
+    grid-row: 1 / -1;
+  }
+
+  .calculate-age-btn {
+    grid-column: 1 / 1;
+    grid-row: 1 / -1;
+    justify-self: center;
+  }
 }
