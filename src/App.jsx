@@ -4,6 +4,12 @@ import AgeCalculatorContainer from './components/AgeCalculatorContainer';
 import AgeDisplayer from './components/AgeDisplayer';
 import AgeForm from './components/AgeForm';
 import Attribution from './components/Attribution';
+import {
+  validateDay,
+  validateMonth,
+  validateYear,
+  validateNotInThePast,
+} from './utils/dateValidations';
 import intervalToDuration from 'date-fns/intervalToDuration';
 
 function App() {
@@ -12,23 +18,54 @@ function App() {
   const [year, setYear] = useState('');
 
   const [ageResults, setAgeResults] = useState(null);
+  const [dayError, setDayError] = useState('');
+  const [monthError, setMonthError] = useState('');
+  const [yearError, setYearError] = useState('');
 
   function handleAgeFormSubmit(event) {
     event.preventDefault();
 
-    const birthday = moment(new Date(year, month - 1, day).toISOString());
-    const currentDate = moment();
+    setDayError('');
+    setMonthError('');
+    setYearError('');
 
-    const timeDifferences = intervalToDuration({
-      start: new Date(),
-      end: new Date(year, month - 1, day),
-    });
+    const [isValidDay, errorDayMsg] = validateDay(day);
+    const [isValidMonth, errorMonthMsg] = validateMonth(month);
+    const [isValidYear, errorYearMsg] = validateYear(year);
 
-    setAgeResults({
-      days: timeDifferences.days,
-      months: timeDifferences.months,
-      years: timeDifferences.years,
-    });
+    const isInThePast = validateNotInThePast({ day, month, year });
+
+    if (!isValidDay) {
+      setDayError(errorDayMsg);
+    }
+
+    if (!isValidMonth) {
+      setMonthError(errorMonthMsg);
+    }
+
+    if (!isValidYear) {
+      setYearError(errorYearMsg);
+    }
+
+    if (isValidDay && isValidMonth && isValidYear) {
+      if (!isInThePast) {
+        setYearError('Must be in the past');
+        return;
+      }
+
+      const { days, months, years } = intervalToDuration({
+        start: new Date(),
+        end: new Date(year, month - 1, day),
+      });
+
+      setAgeResults({
+        days,
+        months,
+        years,
+      });
+    } else {
+      setAgeResults(null);
+    }
   }
 
   return (
@@ -42,6 +79,9 @@ function App() {
           handleMonthChange={(event) => setMonth(event.target.value)}
           handleYearChange={(event) => setYear(event.target.value)}
           handleAgeFormSubmit={handleAgeFormSubmit}
+          dayError={dayError}
+          monthError={monthError}
+          yearError={yearError}
         />
         <AgeDisplayer
           years={ageResults?.years}

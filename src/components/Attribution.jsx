@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const Attribution = ({ authorName, authorGithub }) => {
   return (
     <div className="attribution">
-      Challenge by
+      Challenge by{' '}
       <a
         href="https://www.frontendmentor.io?ref=challenge"
         target="_blank"

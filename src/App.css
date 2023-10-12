@@ -32,7 +32,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 14px;
+  gap: 1.8rem;
+  margin-bottom: 1.8rem;
 }
 
 .input-label-container {
@@ -64,6 +65,18 @@ body {
 .age-form-input:focus {
   outline: 1px solid var(--purple);
   caret-color: var(--purple);
+}
+
+.error {
+  color: var(--light-red);
+}
+
+input.error {
+  outline: 1px solid var(--light-red);
+}
+
+.error-msg {
+  height: 1rem;
 }
 
 .submit-btn-container {
@@ -98,8 +111,13 @@ body {
 }
 
 .attribution {
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-align: center;
+  background-color: var(--off-black);
+  color: var(--off-white);
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
 }
 .attribution a {
   color: hsl(228, 45%, 44%);
@@ -123,10 +141,6 @@ body {
 }
 
 @media (max-width: 475px) {
-  .age-calculator-container {
-    padding: 1rem;
-  }
-
   .age-form {
     grid-template-columns: 1fr;
   }

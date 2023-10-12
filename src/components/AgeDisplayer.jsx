@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const AgeDisplayer = ({ years, months, days }) => {
   return (
     <div className="age-results">
@@ -21,6 +23,12 @@ const AgeDisplayer = ({ years, months, days }) => {
       </h2>
     </div>
   );
+};
+
+AgeDisplayer.propTypes = {
+  years: PropTypes.number,
+  months: PropTypes.number,
+  days: PropTypes.number,
 };
 
 export default AgeDisplayer;
